@@ -2,12 +2,13 @@ package src;
 
 import java.util.regex.Pattern;
 
+// Snail Polybe code with 26 characters (i/j or v/w substitutions not used).
 enum Polybe {
-    A(11), B(12), C(13), D(14), E(15),
-    F(21), G(22), H(23), I(24), J(25),
-    K(31), L(32), M(33), N(34), O(35),
-    P(41), Q(42), R(43), S(44), T(45),
-    U(51), V(52), W(53), X(54), Y(55), Z(56);
+    A(33), B(32), C(42), D(43), E(44),
+    F(34), G(24), H(23), I(22), J(21),
+    K(31), L(41), M(51), N(52), O(53),
+    P(54), Q(55), R(45), S(35), T(25),
+    U(15), V(14), W(13), X(12), Y(11), Z(16);
 
     private final int code;
 
