@@ -54,7 +54,6 @@ public class Vigenere {
         return result.toString();
     }
 
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Vigenere cipher = new Vigenere();
@@ -63,21 +62,29 @@ public class Vigenere {
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
-        // User enters a key for encryption
-        String key;
-        // Keep asking for a valid key until the user provides one
-        while (true) {
+        String key = "";  // Initialize the key variable before the loop
+        int compt = 0; // Counter for invalid attempts
+
+        // Keep asking for a valid key until the user provides one or 5 attempts are reached
+        while (compt < 5) {
             System.out.print("Enter the key for encryption (only letters): ");
             key = scanner.nextLine();
 
             if (cipher.isValidKey(key)) {
                 break; // If key is valid, exit the loop
             } else {
+                compt++; // Increment the attempts count
                 System.out.println("Invalid key! Please enter only letters.");
             }
         }
 
-        // Encrypt the password using the Vigenere cipher
+        // Check if the user failed to enter a valid key after 5 attempts
+        if (compt >= 5) {
+            System.out.println("Error: noob YOU LOOSE back to menu!!!!");
+            return; // Exit the program if maximum attempts are reached
+        }
+
+        // Encrypt the password using the Vigenere
         String encryptedPassword = cipher.encrypt(password, key);
 
         // Display the encrypted password
