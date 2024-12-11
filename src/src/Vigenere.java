@@ -22,6 +22,18 @@ public class Vigenere {
         return result.toString();
     }
 
+    // Method to validate the key
+    public boolean isValidKey(String key) {
+        for (int i = 0; i < key.length(); i++) {
+            char c = key.charAt(i);
+            // Check if the character is not a letter (A-Z or a-z)
+            if (!Character.isLetter(c)) {
+                return false; // If any non-letter character is found, return false
+            }
+        }
+        return true; // If all characters are letters, return true
+    }
+
     // Method to decrypt using Vigenere cipher
     public String decrypt(String text, String key) {
         StringBuilder result = new StringBuilder();
@@ -42,6 +54,7 @@ public class Vigenere {
         return result.toString();
     }
 
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Vigenere cipher = new Vigenere();
@@ -51,8 +64,18 @@ public class Vigenere {
         String password = scanner.nextLine();
 
         // User enters a key for encryption
-        System.out.print("Enter the key for encryption: ");
-        String key = scanner.nextLine();
+        String key;
+        // Keep asking for a valid key until the user provides one
+        while (true) {
+            System.out.print("Enter the key for encryption (only letters): ");
+            key = scanner.nextLine();
+
+            if (cipher.isValidKey(key)) {
+                break; // If key is valid, exit the loop
+            } else {
+                System.out.println("Invalid key! Please enter only letters.");
+            }
+        }
 
         // Encrypt the password using the Vigenere cipher
         String encryptedPassword = cipher.encrypt(password, key);
