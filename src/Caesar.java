@@ -2,7 +2,12 @@ import java.util.Scanner;
 
 public class Caesar {
 
-    // Main entry point for the Caesar tool
+    /**
+     * Start the Caesar tool and allow the user to choose
+     * between encrypting or decrypting a message.
+     *
+     * @param scanner, the Scanner object to read user input
+     */
     public static void start(Scanner scanner) {
         boolean running = true;
 
@@ -29,7 +34,12 @@ public class Caesar {
         }
     }
 
-    // Get a valid option (1, 2, or 3) from the user
+    /**
+     * Prompt the user to choose an option: encrypt, decrypt, or return to the main menu.
+     *
+     * @param scanner, the Scanner object to read user input
+     * @return the user's choice as an integer (1, 2, or 3)
+     */
     private static int getValidOption(Scanner scanner) {
         while (true) {
             System.out.println("Choose an option:");
@@ -50,7 +60,12 @@ public class Caesar {
         }
     }
 
-    // Encryption process
+    /**
+     * Handle the encryption process by asking the user for a valid string
+     * and shift value, then displaying the encrypted message.
+     *
+     * @param scanner, the Scanner object to read user input
+     */
     private static void encryptProcess(Scanner scanner) {
         boolean validInput = false;
 
@@ -75,7 +90,12 @@ public class Caesar {
         System.out.println(); // Add spacing for better readability
     }
 
-    // Decryption process
+    /**
+     * Handle the decryption process by asking the user for a valid string
+     * and shift value, then displaying the decrypted message.
+     *
+     * @param scanner, the Scanner object to read user input
+     */
     private static void decryptProcess(Scanner scanner) {
         boolean validInput = false;
 
@@ -99,7 +119,12 @@ public class Caesar {
         System.out.println(); // Add spacing for better readability
     }
 
-    // Method to get a valid integer shift value
+    /**
+     * Prompt the user to enter a valid shift value (integer).
+     *
+     * @param scanner, the Scanner object to read user input
+     * @return the valid shift value entered by the user
+     */
     private static int getValidShift(Scanner scanner) {
         while (true) {
             System.out.println("Enter a shift value (X):");
@@ -112,12 +137,23 @@ public class Caesar {
         }
     }
 
-    // Method to validate user input
+    /**
+     * Validate that the input string contains only lowercase or only uppercase letters.
+     *
+     * @param input, the input string to validate
+     * @return true if the input is valid, false otherwise
+     */
     private static boolean isValidInput(String input) {
         return input.matches("[a-z]+") || input.matches("[A-Z]+");
     }
 
-    // Method to encrypt the string using ROT(X)
+    /**
+     * Encrypt a string using the Caesar encryption with the given shift value.
+     *
+     * @param input, the string to encrypt (must be only lowercase or only uppercase)
+     * @param shift, the shift value to apply
+     * @return the encrypted string
+     */
     private static String encryptROT(String input, int shift) {
         StringBuilder result = new StringBuilder();
         shift = shift % 26; // Normalize the shift
@@ -132,7 +168,13 @@ public class Caesar {
         return result.toString();
     }
 
-    // Method to decrypt the string using ROT(X)
+    /**
+     * Decrypt a string using the Caesar decryption with the given shift value.
+     *
+     * @param input, the string to decrypt (must be only lowercase or only uppercase)
+     * @param shift, the shift value to apply
+     * @return the decrypted string
+     */
     private static String decryptROT(String input, int shift) {
         StringBuilder result = new StringBuilder();
         shift = shift % 26; // Normalize the shift
