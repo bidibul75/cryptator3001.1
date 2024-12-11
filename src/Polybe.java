@@ -23,17 +23,21 @@ enum Polybe {
     }
 
     // Method to get the code from a char
-    public static int getCodeFromChar(char c) {
-
+    public static int getCodeFromChar(char c) throws Exception {
+        // Checks if the message to encrypt contains only letters
         if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
-           throw new IllegalArgumentException("Error : the message to encrypt is not only composed of letters");
+            throw new IllegalArgumentException("Error : the message to encrypt is not only composed of letters");
         }
+        // Gets the respective code from a character in the enum
         try {
             return valueOf(String.valueOf(Character.toUpperCase(c))).getCode();
         } catch (IllegalArgumentException e) {
-            return 0; // Returns 0 for unfound characters
+            // If the character is not found in the Polybe enum, as we know at that point that the character is
+            // a letter, it means that le Polybe enum lacks a letter
+            throw new Exception("Some letter lacks in the Polybe enum.");
         }
     }
+
     public static char getCharFromCode(int intToAnalyse) {
         for (Polybe item : values()) {
             if (item.getCode() == intToAnalyse) {
@@ -42,25 +46,28 @@ enum Polybe {
         }
         return '-';
     }
+
     // Encryption method
-    public static String encryption(String messageToCode) {
+    public static String encryption(String messageToCode) throws Exception {
         String encodedMessage = "";
         for (int i = 0; i < messageToCode.length(); i++) {
-            encodedMessage += getCodeFromChar(messageToCode.charAt(i));
+            encodedMessage += String.valueOf(getCodeFromChar(messageToCode.charAt(i)));
         }
         return encodedMessage;
     }
+
     // Decryption method
     public static String decryption(String codedMessage) {
-        String sliceString = "", decodedMessage = "", errorMessage="";
+        String sliceString = "", decodedMessage = "", errorMessage = "";
         int sliceInt = 0;
-        // Error detection
-        if (codedMessage.length() % 2 != 0) errorMessage += "Error : coded massage length isn't even.\n";
+        // Errors detection on the coded message sent in parameter : message length is odd and/or non-numeric item in the message
+        if (codedMessage.length() % 2 != 0) errorMessage += "Error : coded message length isn't even.\n";
         boolean isNumeric = Pattern.matches("^\\d+$", codedMessage);
         if (!isNumeric) errorMessage += "Error : coded message doesn't contains only numbers.";
-        if (errorMessage !="") return errorMessage;
+        if (errorMessage != "") return errorMessage;
 
         try {
+            // Makes slices of 2 numbers from the coded message then sends each slide to the method that returns the character
             for (int i = 0; i < codedMessage.length(); i += 2) {
                 sliceString = codedMessage.substring(i, i + 2);
                 sliceInt = Integer.parseInt(sliceString);
