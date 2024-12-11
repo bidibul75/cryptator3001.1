@@ -22,16 +22,36 @@ public class Vigenere {
         return result.toString();
     }
 
+    // Method to decrypt using Vigenere cipher
+    public String decrypt(String text, String key) {
+        StringBuilder result = new StringBuilder();
+        text = text.toUpperCase();
+        key = key.toUpperCase();
+
+        for (int i = 0, j = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+
+            // Decrypt only alphabetic characters
+            if (c >= 'A' && c <= 'Z') {
+                result.append((char) ((c - key.charAt(j) + 26) % 26 + 'A'));
+                j = (j + 1) % key.length(); // Cycle through the key
+            } else {
+                result.append(c); // Leave non-alphabetic characters unchanged
+            }
+        }
+        return result.toString();
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Vigenere cipher = new Vigenere();
 
-        //  user enter a password
-        System.out.print("enter your password: ");
+        // User enters a password
+        System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
-        //  user enter a key for encryption
-        System.out.print("enter the key for encryption: ");
+        // User enters a key for encryption
+        System.out.print("Enter the key for encryption: ");
         String key = scanner.nextLine();
 
         // Encrypt the password using the Vigenere cipher
@@ -39,6 +59,12 @@ public class Vigenere {
 
         // Display the encrypted password
         System.out.println("Your encrypted password is: " + encryptedPassword);
+
+        // Decrypt the password using the same key
+        String decryptedPassword = cipher.decrypt(encryptedPassword, key);
+
+        // Display the decrypted password
+        System.out.println("Your decrypted password is: " + decryptedPassword);
 
         scanner.close();
     }
