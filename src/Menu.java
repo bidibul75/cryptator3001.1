@@ -1,23 +1,25 @@
 package src;
+import java.util.Scanner;
 
 public class Menu {
     public int currentOption = 0;
     public String currentMenu = "main";
-    public static String[] menuOptions = {"Save password", "Help"};
+    private static Scanner scanner = new Scanner(System.in);
 
-    // display main menu
-    public static void displayMainMenu(int selectedOption) {
+    /**
+     * @param menuOptions Array of strings representing menu options
+     */
+    public static String displayMainMenu(String[] menuOptions) {
         clearConsole();
-        System.out.print("\n --- main_menu\n");
+        System.out.print("\n --- Enter your choice --- \n");
 
         // display every option + current selection
         for(int i = 0; i < menuOptions.length; i++ ) {
-            if(i == selectedOption) {
-                System.out.print("> " + menuOptions[i] + "\n");
-            } else {
-                System.out.print("  " + menuOptions[i] + "\n");
-            }
+                System.out.print("(" + i + ")" + menuOptions[i] + "\n");
         };
+
+        String input = scanner.nextLine();
+        return input;
     };
 
     // clear console depending on os

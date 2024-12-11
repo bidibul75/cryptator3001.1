@@ -1,5 +1,6 @@
 package src;
 
+
 import src.Menu;
 
 public class Main {
@@ -9,6 +10,7 @@ public class Main {
         Menu menu = new src.Menu();
 
         // menu start
-        menu.displayMainMenu(1);
+        String[] menuOptions = {"Save password", "Help"};
+        String input = menu.displayMainMenu(menuOptions);
     }
 }
