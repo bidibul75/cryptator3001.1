@@ -6,15 +6,9 @@ import src.Menu;
 public class Main {
     // entry point
     public static void main(String[] args) throws Exception {
-        Menu menu = new src.Menu();
+        Menu menu = new Menu();
         // Polybe
-        String sbPolybe = "Hello";
-        System.out.println("\n---POLYBE---------------------------");
-        System.out.println(sbPolybe);
-        System.out.println(Polybe.encryption(sbPolybe));
-        System.out.println(Polybe.decryption(Polybe.encryption(sbPolybe)));
-        System.out.println(Polybe.decryption("t66"));
-
+        Polybe.Start();
         // End of Polybe
 
         // RC4
