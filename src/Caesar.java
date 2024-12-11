@@ -6,7 +6,7 @@ public class Caesar {
      * Start the Caesar tool and allow the user to choose
      * between encrypting or decrypting a message.
      *
-     * @param scanner, the Scanner object to read user input
+     * @param scanner: the Scanner object to read user input
      */
     public static void start(Scanner scanner) {
         boolean running = true;
@@ -37,7 +37,7 @@ public class Caesar {
     /**
      * Prompt the user to choose an option: encrypt, decrypt, or return to the main menu.
      *
-     * @param scanner, the Scanner object to read user input
+     * @param scanner: the Scanner object to read user input
      * @return the user's choice as an integer (1, 2, or 3)
      */
     private static int getValidOption(Scanner scanner) {
@@ -64,7 +64,7 @@ public class Caesar {
      * Handle the encryption process by asking the user for a valid string
      * and shift value, then displaying the encrypted message.
      *
-     * @param scanner, the Scanner object to read user input
+     * @param scanner: the Scanner object to read user input
      */
     private static void encryptProcess(Scanner scanner) {
         boolean validInput = false;
@@ -94,7 +94,7 @@ public class Caesar {
      * Handle the decryption process by asking the user for a valid string
      * and shift value, then displaying the decrypted message.
      *
-     * @param scanner, the Scanner object to read user input
+     * @param scanner: the Scanner object to read user input
      */
     private static void decryptProcess(Scanner scanner) {
         boolean validInput = false;
@@ -122,7 +122,7 @@ public class Caesar {
     /**
      * Prompt the user to enter a valid shift value (integer).
      *
-     * @param scanner, the Scanner object to read user input
+     * @param scanner: the Scanner object to read user input
      * @return the valid shift value entered by the user
      */
     private static int getValidShift(Scanner scanner) {
@@ -140,7 +140,7 @@ public class Caesar {
     /**
      * Validate that the input string contains only lowercase or only uppercase letters.
      *
-     * @param input, the input string to validate
+     * @param input: the input string to validate
      * @return true if the input is valid, false otherwise
      */
     private static boolean isValidInput(String input) {
@@ -150,8 +150,8 @@ public class Caesar {
     /**
      * Encrypt a string using the Caesar encryption with the given shift value.
      *
-     * @param input, the string to encrypt (must be only lowercase or only uppercase)
-     * @param shift, the shift value to apply
+     * @param input: the string to encrypt (must be only lowercase or only uppercase)
+     * @param shift: the shift value to apply
      * @return the encrypted string
      */
     private static String encryptROT(String input, int shift) {
@@ -171,8 +171,8 @@ public class Caesar {
     /**
      * Decrypt a string using the Caesar decryption with the given shift value.
      *
-     * @param input, the string to decrypt (must be only lowercase or only uppercase)
-     * @param shift, the shift value to apply
+     * @param input: the string to decrypt (must be only lowercase or only uppercase)
+     * @param shift: the shift value to apply
      * @return the decrypted string
      */
     private static String decryptROT(String input, int shift) {
