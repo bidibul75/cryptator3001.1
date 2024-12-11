@@ -33,16 +33,41 @@ public class LFSR {
             }
         }
 
+        // Ask the user for the number of rotations
+        int rotations = getNumberOfRotations(scanner);
+
         // Convert the seed into bits
         int[] lfsr = convertSeedToBits(seed);
         System.out.println("Initial seed (in bits): " + Arrays.toString(lfsr));
 
-        // Run the LFSR for 10 iterations
+        // Run the LFSR for the specified number of iterations
         System.out.println("\nLFSR results:");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < rotations; i++) {
             int output = runLFSR(lfsr);
             System.out.printf("Iteration %d: Binary = %s, Decimal = %d\n",
                     i + 1, Arrays.toString(lfsr).replaceAll("[\\[\\], ]", ""), output);
+        }
+    }
+
+    /**
+     * Prompt the user to enter the number of rotations for the LFSR.
+     *
+     * @param scanner: The Scanner object used for user input.
+     * @return The number of rotations entered by the user.
+     */
+    private static int getNumberOfRotations(Scanner scanner) {
+        while (true) {
+            try {
+                System.out.print("Enter the number of rotations: ");
+                int rotations = Integer.parseInt(scanner.nextLine());
+                if (rotations > 0) {
+                    return rotations; // Valid number
+                } else {
+                    System.out.println("Error: Please enter a positive number.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Please enter a valid number.");
+            }
         }
     }
 
