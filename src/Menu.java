@@ -8,21 +8,33 @@ public class Menu {
 
     /**
      * @param menuOptions Array of strings representing menu options
+     * @return chosen option by the user
      */
-    public static String displayMainMenu(String[] menuOptions) {
+    public static int displayOptions(String[] menuOptions) {
         clearConsole();
         System.out.print("\n --- Enter your choice --- \n");
 
-        // display every option + current selection
+        // display every option
         for(int i = 0; i < menuOptions.length; i++ ) {
                 System.out.print("(" + i + ")" + menuOptions[i] + "\n");
         };
-
-        String input = scanner.nextLine();
-        return input;
+        return getOptionNumberFromInput(menuOptions.length - 1);
     };
 
-    // clear console depending on os
+    /**
+     *
+     * @param prompt prompt to display
+     * @return user input
+     */
+    public static String getInput(String prompt) {
+        clearConsole();
+        System.out.print("\n" + prompt + "\n");
+        return scanner.nextLine();
+    };
+
+    /**
+     * Clears console depending on the OS.
+     */
     public static void clearConsole() {
         try
         {
@@ -39,7 +51,32 @@ public class Menu {
         }
         catch (final Exception e)
         {
-            //  Handle any exceptions.
+            System.out.print("\nError while clearing the console\n");
         }
+    }
+
+    /**
+     *
+     * @param optionCount (int) the maximum number of options
+     * @return (int) selected option
+     */
+    public static int getOptionNumberFromInput(int optionCount) {
+        int chosenOption = 0;
+        boolean validInput = false;
+        while (!validInput) {
+            String input = scanner.nextLine();
+            try {
+                chosenOption  = Integer.parseInt(input);
+                if(chosenOption <= optionCount) {
+                    validInput = true;
+                } else {
+                    System.out.print("\nWrong input!\n");
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.print("\nWrong input!\n");
+            }
+        }
+        return chosenOption;
     }
 }
