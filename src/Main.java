@@ -6,6 +6,8 @@ import src.LFSR;
 import src.MD5;
 import src.Polybe;
 import src.Vigenere;
+import src.RC4;
+import src.Sha256;
 
 import java.util.Scanner;
 
@@ -78,7 +80,7 @@ public class Main {
                     break;
                 case 1:
                     System.out.println("\nLaunching Vigenere...");
-                    Vigenere.start();
+                    Vigenere.start(scanner);
                     break;
                 case 2:
                     System.out.println("\nLaunching Polybe...");
@@ -102,7 +104,7 @@ public class Main {
                     break;
                 case 7:
                     System.out.println("\nLaunching SHA-256...");
-                    // CALL THE SHA-256 STARTER
+                    Sha256.start(scanner);
                     break;
                 case 8:
                     toolsRunning = false;
