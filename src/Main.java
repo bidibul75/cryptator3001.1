@@ -6,7 +6,16 @@ import src.Menu;
 
 public class Main {
     // entry point
+
     public static void main(String[] args) {
+       Menu menu = new Menu();
+            // Polybe
+            Polybe.Start();
+            // End of Polybe
+
+            // RC4
+            RC4.Start();
+            // End of RC4
         Menu menu = new src.Menu();
         Enigma enigma = new Enigma();
                 // Polybe
@@ -22,5 +31,10 @@ public class Main {
         System.out.println(encoded);
         String decoded = enigma.decryptEnigma(encoded, wheels);
         System.out.println(decoded);
+
+    public static void main(String[] args) throws Exception {
+       
+
+
     }
 }

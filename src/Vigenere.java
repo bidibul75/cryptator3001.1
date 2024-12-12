@@ -1,3 +1,4 @@
+package src;
 import java.util.Scanner;
 
 public class Vigenere {
@@ -54,8 +55,9 @@ public class Vigenere {
         return result.toString();
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    //public static void main(String[] args) {
+      public static void start(Scanner scanner){
+        //Scanner scanner = new Scanner(System.in);
         Vigenere cipher = new Vigenere();
 
         // User enters a password
@@ -96,6 +98,6 @@ public class Vigenere {
         // Display the decrypted password
         System.out.println("Your decrypted password is: " + decryptedPassword);
 
-        scanner.close();
+        //scanner.close();
     }
 }
