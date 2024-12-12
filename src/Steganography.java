@@ -9,35 +9,10 @@ import java.util.Scanner;
 public class Steganography {
     private static final String BASE_IMAGE_PATH = "src/resources/images/";
 
-    public static void start() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Steganography Program");
-        System.out.println("1. Encode a message");
-        System.out.println("2. Decode a message");
-        int choice = scanner.nextInt();
-       scanner.nextLine(); // Consume newline
-
-        if (choice == 1) {
-            System.out.print("Enter image name (e.g., myimage.png): ");
-            String imagePath = scanner.nextLine();
-            System.out.print("Enter message to encode: ");
-            String message = scanner.nextLine();
-            System.out.print("Enter output image path: ");
-            String outputPath = scanner.nextLine();
-            encodeMessage(imagePath, message, outputPath);
-        } else if (choice == 2) {
-            System.out.print("Enter image name (e.g., myimage.png): ");
-            String imagePath = scanner.nextLine();
-            String decodedMessage = decodeMessage(imagePath);
-            System.out.println("Decoded message: " + decodedMessage);
-        } else {
-            System.out.println("Invalid choice.");
-        }
-    }
-
-    private static void encodeMessage(String imagePath, String message, String outputPath) {
+    private static void encodeMessage(String imageSourceName, String message, String imageDestinationName) {
         try {
-            String fullImagePath = BASE_IMAGE_PATH + imagePath;
+            String outputPath = BASE_IMAGE_PATH + imageDestinationName;
+            String fullImagePath = BASE_IMAGE_PATH + imageSourceName;
             File imageFile = new File(fullImagePath);
 
             // Checks if the file exists
@@ -93,12 +68,11 @@ public class Steganography {
     }
 
     private static BufferedImage encode(BufferedImage image, String message) {
-        String messageWithTerminator = message + "\0"; // Adds the termination code
+        String messageWithTerminator = message + "\0"; // Adds the termination code at the end of the string
         int[] messageBits = messageToBits(messageWithTerminator);
 
         BufferedImage encodedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         int bitIndex = 0;
-
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
                 int pixel = image.getRGB(x, y);
@@ -125,6 +99,7 @@ public class Steganography {
                 if (message.length() % 8 == 0) {
                     String character = binaryToString(message.substring(message.length() - 8));
                     if (character.equals("\0")) {
+                        // We return the hidden message once we find the termination byte
                         return binaryToString(message.substring(0, message.length() - 8));
                     }
                 }
@@ -159,7 +134,7 @@ public class Steganography {
         int green = (pixel >> 8) & 0xFF; // Green component
         int blue = pixel & 0xFF;         // Blue component
 
-        // Modify only the blue component to set the LSB
+        // Modify only the blue component to set the Least Significant Bit
         blue = (blue & 0xFE) | bit;
 
         // Reconstruct the pixel with the new values
@@ -168,5 +143,39 @@ public class Steganography {
 
     private static int getLeastSignificantBit(int pixel) {
         return pixel & 1; // Extract the LSB from the blue component
+    }
+
+    public static void start() {
+        System.out.println("\n---Steganograoph-----------------------");
+        Scanner scanner = new Scanner(System.in);
+        String choice;
+        do {
+            System.out.print("Do you want to Encode (E) or Decode (D) a message, or exit (Q) ? : ");
+            choice = scanner.nextLine();
+            //scanner.nextLine(); // Consume newline
+            switch (choice.toUpperCase()) {
+                case "E":
+                    System.out.print("Enter source image name (e.g., easter.png): ");
+                    String imageSourceName = scanner.nextLine();
+                    System.out.print("Enter message to encode : ");
+                    String message = scanner.nextLine();
+                    System.out.print("Enter output image name (e.g., egg.png) : ");
+                    String imageDestinationName = scanner.nextLine();
+                    // Encryption works in /src/resources/images path
+                    encodeMessage(imageSourceName, message, imageDestinationName);
+                    break;
+                case "D":
+                    System.out.print("Enter image name (e.g., egg.png): ");
+                    String imagePath = scanner.nextLine();
+                    // Decryption works in /src/resources/images path
+                    String decodedMessage = decodeMessage(imagePath);
+                    System.out.println("Decoded message: " + decodedMessage);
+                    break;
+                case "Q":
+                    break;
+                default:
+                    System.out.println("Invalid choice, please retry.");
+            }
+        } while (!choice.equalsIgnoreCase("Q"));
     }
 }
