@@ -82,7 +82,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("\nLaunching Polybe...");
-                    // CALL THE POLYBE STARTER
+                    Polybe.Start();
                     break;
                 case 3:
                     System.out.println("\nLaunching LFSR...");
@@ -94,7 +94,7 @@ public class Main {
                     break;
                 case 5:
                     System.out.println("\nLaunching RC4...");
-                    // CALL THE RC4 STARTER
+                    RC4.Start();
                     break;
                 case 6:
                     System.out.println("\nLaunching MD5...");
