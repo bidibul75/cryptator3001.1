@@ -131,12 +131,12 @@ enum Polybe {
             if (!isNumeric) errorMessage += "Error : encrypted message doesn't contains only numbers.";
             if (errorMessage != "") {
                 System.out.println(errorMessage);
+                errorMessage="";
             } else {
                 System.out.println("Message to decrypt " + messageToDecrypt);
                 System.out.println("Decrypted message : " + Polybe.decryption(messageToDecrypt));
                 break;
             }
         }
-        scanner.close();
     }
 }
