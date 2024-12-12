@@ -1,5 +1,9 @@
 package src;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Enigma {
 
     private final char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -11,7 +15,7 @@ public class Enigma {
      * @return encrypted message
      */
     String encryptEnigma(String message, int[] wheelPositions) {
-        char[] data = message.toLowerCase().toCharArray();
+        char[] data = sanitizeMessage(message.toLowerCase().toCharArray());
 
         // run the wheel offsets as many times as we want
         for (int position : wheelPositions) {
@@ -104,5 +108,25 @@ public class Enigma {
             }
         }
         return number;
+    }
+
+    char[] sanitizeMessage(char[] message) {
+        // dynamic list of characters
+        List<Character> cleanMessageData = new ArrayList<>();
+        // iterate over each
+        for (int i = 0; i < message.length; i++) {
+            for (int j = 0; j < alphabet.length; j++) {
+                if(message[i] == alphabet[j]) {
+                    cleanMessageData.add(message[i]);
+                }
+            }
+        }
+
+        // convert to char array (because it's size is fixed)
+        char[] cleanMessage = new char[cleanMessageData.size()];
+        for (int i = 0; i < cleanMessageData.size(); i++) {
+            cleanMessage[i] = cleanMessageData.get(i);
+        }
+        return cleanMessage;
     }
 }
