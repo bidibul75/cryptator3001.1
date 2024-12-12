@@ -13,7 +13,7 @@ public class Enigma {
     /**
      * @throws Exception
      */
-    public static void Start() throws Exception {
+    public static void Start(){
         System.out.println("\n---ENIGMA---------------------------");
         Scanner scanner = new Scanner(System.in);
 
@@ -84,7 +84,7 @@ public class Enigma {
             }
 
             while (true) {
-                System.out.print("ENIGMA - Which position for the first wheel (0 - 26)? : ");
+                System.out.print("ENIGMA - Which position for the second wheel (0 - 26)? : ");
                 choice = scanner.nextLine();
                 if (isValidNumber(choice)) {
                     wheel[2] = Integer.parseInt(choice);
@@ -94,7 +94,7 @@ public class Enigma {
             }
 
             while (true) {
-                System.out.print("ENIGMA - Which position for the first wheel (0 - 26)? : ");
+                System.out.print("ENIGMA - Which position for the third wheel (0 - 26)? : ");
                 choice = scanner.nextLine();
                 if (isValidNumber(choice)) {
                     wheel[0] = Integer.parseInt(choice);
@@ -127,47 +127,26 @@ public class Enigma {
     public static String encryptEnigma(String message, int[] wheelPositions) {
         char[] data = sanitizeMessage(message.toLowerCase().toCharArray());
 
-        // run the wheel offsets as many times as we want
-        for (int position : wheelPositions) {
+        for (int i = 0; i < wheelPositions.length; i++) {
             for (int j = 0; j < data.length; j++) {
-                data[j] = getLetterWithOffset(data[j], position, false);
+                data[j] = getLetterWithOffset(data[j], wheelPositions[i], false);
+                data[j] = mirrorChar(data[j]);
+                data[j] = getLetterWithOffset(data[j], wheelPositions[(wheelPositions.length - 1) - i], false);
             }
         }
-
-        // mirror on the alphabet
-        mirrorCharList(data);
-
-        // re-run the wheels again
-        for (int position : wheelPositions) {
-            for (int j = 0; j < data.length; j++) {
-                data[j] = getLetterWithOffset(data[j], position, false);
-            }
-        }
-
         return new String(data);
     }
 
     public static String decryptEnigma(String message, int[] wheelPositions) {
-        char[] data = message.toLowerCase().toCharArray();
+        char[] data = sanitizeMessage(message.toLowerCase().toCharArray());
 
-        // re-run the wheel offsets in reverse order (should be the same input as encoding function call)
         for (int i = wheelPositions.length - 1; i >= 0; i--) {
             for (int j = 0; j < data.length; j++) {
-                // reverse the offset
+                data[j] = getLetterWithOffset(data[j], wheelPositions[(wheelPositions.length - 1) - i], true);
+                data[j] = mirrorChar(data[j]);
                 data[j] = getLetterWithOffset(data[j], wheelPositions[i], true);
             }
         }
-
-        // mirror again
-        mirrorCharList(data);
-
-        // same thing as above to completely reverse the algorithm
-        for (int i = wheelPositions.length - 1; i >= 0; i--) {
-            for (int j = 0; j < data.length; j++) {
-                data[j] = getLetterWithOffset(data[j], wheelPositions[i], true);  // Inverse offset for decryption
-            }
-        }
-
         return new String(data);
     }
 
@@ -178,30 +157,46 @@ public class Enigma {
      * @param inverse whether to reverse the offset (used for decryption)
      * @return letter at the specified offset
      */
-    public static char getLetterWithOffset(char letter, int offset, boolean inverse) {
-        System.out.println(offset);
+    public static char getLetterWithOffset(char letter, int offset, boolean inverse) {;
         int firstIndex = firstIndexOfChar(alphabet, letter);
         if (inverse) {
             // subtract the offset and wrap around if needed
-            return alphabet[(firstIndex - offset + alphabet.length) % alphabet.length];
+            int index;
+            if(firstIndex - offset < 0) {
+                index = (alphabet.length - 1) + firstIndex - offset;
+            } else {
+                index = firstIndex - offset;
+            }
+            return alphabet[index];
         } else {
             // addition the offset and wrap around if needed
-            return alphabet[(firstIndex + offset) % alphabet.length];
+            int index;
+            if(firstIndex + offset >= alphabet.length) {
+                index = (alphabet.length - 1) + firstIndex - offset;
+            } else {
+                index = firstIndex + offset;
+            }
+            return alphabet[index];
         }
     }
 
     /**
      * mirrors on the alphabet each letter of the character list
-     * @param charList list of characters we want to mirror
+     * @param character character we want to mirror
      */
-    public static void mirrorCharList(char[] charList) {
-        for (int i = 0; i < charList.length; i++) {
-            int firstIndex = firstIndexOfChar(alphabet, charList[i]);
-
+    public static char mirrorChar(char character) {
+        int firstIndex = firstIndexOfChar(alphabet, character);
+        int mirroredIndex;
             // invert char position according to the size of the alphabet
-            int mirroredIndex = alphabet.length - 1 - firstIndex;
-            charList[i] = alphabet[mirroredIndex];
+        if(firstIndex < alphabet.length/2) {
+            mirroredIndex = (alphabet.length/2) - (alphabet.length/2 - firstIndex);
+        } else if (firstIndex > alphabet.length/2) {
+            mirroredIndex = (alphabet.length/2) + (alphabet.length/2 - firstIndex);
+        } else {
+            mirroredIndex = firstIndex;
         }
+
+        return alphabet[mirroredIndex];
     }
 
     /**
