@@ -13,7 +13,7 @@ public class Caesar {
     public static void start(Scanner scanner) {
         boolean running = true;
 
-        System.out.println("=== Caesar Tool ===");
+        System.out.println("=== Caesar ===");
 
         while (running) {
             int choice = getValidOption(scanner); // Get a valid choice from the user

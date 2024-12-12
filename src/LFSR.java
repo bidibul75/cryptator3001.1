@@ -12,7 +12,7 @@ public class LFSR {
      * @param scanner: The Scanner object used for user input.
      */
     public static void start(Scanner scanner) {
-        System.out.println("=== LFSR Random Number Generator ===");
+        System.out.println("=== LFSR (Random Number Generator) ===");
 
         // Prompt the user for a seed
         String seed = null;

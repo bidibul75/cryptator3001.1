@@ -8,6 +8,7 @@ import src.Polybe;
 import src.Vigenere;
 import src.RC4;
 import src.Sha256;
+import src.AES;
 
 import java.util.Scanner;
 
@@ -66,6 +67,7 @@ public class Main {
                 "RC4",
                 "MD5",
                 "SHA-256",
+                "AES",
                 "Back to Main Menu"
         };
 
@@ -107,6 +109,10 @@ public class Main {
                     Sha256.start(scanner);
                     break;
                 case 8:
+                    System.out.println("\nLaunching AES...");
+                    AES.start(scanner);
+                    break;
+                case 9:
                     toolsRunning = false;
                     break;
                 default:
