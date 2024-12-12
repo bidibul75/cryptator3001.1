@@ -1,3 +1,5 @@
+package src;
+
 import java.util.Scanner;
 
 public class Vigenere {
@@ -54,7 +56,7 @@ public class Vigenere {
         return result.toString();
     }
 
-    public static void main(String[] args) {
+    public static void start () {
         Scanner scanner = new Scanner(System.in);
         Vigenere cipher = new Vigenere();
 
