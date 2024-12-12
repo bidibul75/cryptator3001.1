@@ -96,6 +96,6 @@ public class Vigenere {
         // Display the decrypted password
         System.out.println("Your decrypted password is: " + decryptedPassword);
 
-        scanner.close();
+        //scanner.close();
     }
 }

@@ -25,7 +25,7 @@ public class Sha256 {
             System.err.println("Error during hashing: " + e.getMessage());
         }
 
-        scanner.close();
+        //scanner.close();
     }
 
     // Method to hash a password using SHA-256
