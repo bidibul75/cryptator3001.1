@@ -1,12 +1,15 @@
 package src;
 import src.Enigma;
 
+
+import src.Menu;
+
 public class Main {
-
+    // entry point
     public static void main(String[] args) {
+        Menu menu = new src.Menu();
         Enigma enigma = new Enigma();
-
-        // Polybe
+                // Polybe
         String sbPolybe = "Walter";
         System.out.println(sbPolybe);
         System.out.println(Polybe.encryption(sbPolybe));
