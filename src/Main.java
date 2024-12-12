@@ -5,13 +5,15 @@ import src.Menu;
 
 public class Main {
     // entry point
-    public static void main(String[] args) {
-        Menu menu = new src.Menu();
-                // Polybe
-        String sbPolybe = "Walter";
-        System.out.println(sbPolybe);
-        System.out.println(Polybe.encryption(sbPolybe));
-        System.out.println(Polybe.decryption("t66"));
+    public static void main(String[] args) throws Exception {
+        Menu menu = new Menu();
+        // Polybe
+        Polybe.Start();
         // End of Polybe
+
+        // RC4
+        RC4.Start();
+        // End of RC4
+
     }
 }
