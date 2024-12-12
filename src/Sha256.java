@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 public class Sha256 {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    //public static void main(String[]arg){
+    public static void start(Scanner scanner) {
+        //Scanner scanner = new Scanner(System.in);
 
         // Prompt the user to enter a password
         System.out.print("Enter a password to hash: ");

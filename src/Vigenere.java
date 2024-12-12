@@ -54,8 +54,9 @@ public class Vigenere {
         return result.toString();
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    //public static void main(String[] args) {
+      public static void start(Scanner scanner){
+        //Scanner scanner = new Scanner(System.in);
         Vigenere cipher = new Vigenere();
 
         // User enters a password
