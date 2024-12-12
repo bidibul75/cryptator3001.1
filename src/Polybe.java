@@ -45,6 +45,7 @@ enum Polybe {
         }
         return '-';
     }
+
     // Encryption method
     public static String encryption(String messageToCode) throws Exception {
         if (messageToCode.equalsIgnoreCase("easter")) {
@@ -75,18 +76,18 @@ enum Polybe {
     }
 
     // Decryption method
-    public static String decryption(String codedMessage) throws Exception {
+    public static String decryption(String codedMessage) {
         if (codedMessage.equalsIgnoreCase("366")) return "easter";
 
-        String sliceString = "", decodedMessage = "", errorMessage = "";
+        String sliceString = "", decodedMessage = "";
         int sliceInt = 0;
         try {
             // Makes slices of 2 numbers from the coded message then sends each slide to the method that returns the character
             for (int i = 0; i < codedMessage.length(); i += 2) {
                 sliceString = codedMessage.substring(i, i + 2);
                 sliceInt = Integer.parseInt(sliceString);
-                if (getCharFromCode(sliceInt)=='-'){
-                    throw new Exception("Error : One or more numbers do not match encoded characters.");
+                if (getCharFromCode(sliceInt) == '-') {
+                    return "Error : One or more numbers do not match encoded characters.";
                 }
                 decodedMessage += getCharFromCode(sliceInt);
             }
@@ -129,13 +130,17 @@ enum Polybe {
             if (messageToDecrypt.length() % 2 != 0) errorMessage += "Error : encrypted message length isn't even.\n";
             boolean isNumeric = Pattern.matches("^\\d+$", messageToDecrypt);
             if (!isNumeric) errorMessage += "Error : encrypted message doesn't contains only numbers.";
-            if (errorMessage != "") {
+            if (!errorMessage.isEmpty()) {
                 System.out.println(errorMessage);
-                errorMessage="";
+                errorMessage = "";
             } else {
-                System.out.println("Message to decrypt " + messageToDecrypt);
-                System.out.println("Decrypted message : " + Polybe.decryption(messageToDecrypt));
-                break;
+                String decryptionResult = Polybe.decryption(messageToDecrypt);
+                if (decryptionResult.substring(0, 5).equalsIgnoreCase("Error")) {
+                    System.out.println(decryptionResult);
+                } else {
+                    System.out.println("Decrypted message : " + decryptionResult);
+                    break;
+                }
             }
         }
     }

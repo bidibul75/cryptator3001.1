@@ -95,7 +95,6 @@ public class RC4 {
         messageToEncrypt = scanner.nextLine();
         // spaces at the begining and at the end of the string are deleted
         messageToEncrypt = messageToEncrypt.trim();
-        System.out.println("message à chiffrer : " + messageToEncrypt);
         // Crypt - RC4 initialization with the key
         RC4 rc4 = new RC4(key.getBytes());
         byte[] encryptedMessage = rc4.encryptDecrypt(messageToEncrypt.getBytes());
