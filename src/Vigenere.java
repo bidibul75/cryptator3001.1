@@ -61,6 +61,8 @@ public class Vigenere {
         //Scanner scanner = new Scanner(System.in);
         Vigenere cipher = new Vigenere();
 
+        System.out.println("=== Vigenere ===");
+
         // User enters a password
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
