@@ -70,6 +70,7 @@ public class Main {
                 "SHA-256",
                 "Steganographie",
                 "AES",
+                "HMAC",
                 "Back to Main Menu"
         };
 
@@ -119,6 +120,10 @@ public class Main {
                     AES.start(scanner);
                     break;
                 case 10:
+                    System.out.println("\nLaunching HMAC...");
+                    Hmac.start(scanner);
+                    break;
+                case 11:
                     toolsRunning = false;
                     break;
                 default:
@@ -150,7 +155,8 @@ public class Main {
         - RC4 (Rivest Cipher 4): Stream cipher that generates a pseudo-random bit stream for fast encryption and decryption.
         - MD5 (Message Digest 5): Generate an MD5 hash for verifying the integrity of passwords.
         - SHA-256 (Secure Hash Algorithm 256-bit): Generate a 256-bit cryptographic hash for secure data integrity and verification.
-
+        - HMAC (hash-based message authentication code) Encodes an HMAC with the given data and compares it to a given hexadecimal HMAC to guarantee authenticity.
+        
         Usage:
         Select an option from the main menu by entering its number.
 
