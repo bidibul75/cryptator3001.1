@@ -11,6 +11,7 @@ import src.RC4;
 import src.Sha256;
 import src.AES;
 import src.Steganography;
+import src.Hmac;
 
 import java.util.Scanner;
 
@@ -70,6 +71,7 @@ public class Main {
                 "SHA-256",
                 "Steganographie",
                 "AES",
+                "HMAC",
                 "Back to Main Menu"
         };
 
@@ -115,6 +117,10 @@ public class Main {
                     AES.start(scanner);
                     break;
                 case 9:
+                    System.out.println("\nLaunching HMAC...");
+                    Hmac.start(scanner);
+                    break;
+                case 10:
                     toolsRunning = false;
                     break;
                 default:
@@ -129,49 +135,50 @@ public class Main {
      */
     private static void displayHelp() {
         String helpText = """
-        === Help Menu ===
-        Welcome to Cryptator3001.1!
-
-        About the project:
-        Cryptator3001.1 is a tool designed for securely encrypting, decrypting,
-        and hashing passwords. The goal is to provide a reliable way to handle
-        sensitive information for secure storage and integrity verification.
-
-        Features:
-        - Caesar: Encrypt or decrypt messages by shifting letters by a fixed number of positions in the alphabet.
-        - Vigenere: Use a keyword to encrypt or decrypt messages with a polyalphabetic substitution cipher.
-        - Polybe: Encode messages into pairs of coordinates using a grid-based substitution cipher.
-        - LFSR (Linear Feedback Shift Register): Generate pseudo-random numbers or encrypt data by shifting bits with feedback.
-        - Enigma: Simulate the rotor-based encryption of the World War II German Enigma machine.
-        - RC4 (Rivest Cipher 4): Stream cipher that generates a pseudo-random bit stream for fast encryption and decryption.
-        - MD5 (Message Digest 5): Generate an MD5 hash for verifying the integrity of passwords.
-        - SHA-256 (Secure Hash Algorithm 256-bit): Generate a 256-bit cryptographic hash for secure data integrity and verification.
-
-        Usage:
-        Select an option from the main menu by entering its number.
-
-        For encryption and decryption, follow the specific prompts for each tool.
-        """;
+                === Help Menu ===
+                Welcome to Cryptator3001.1!
+                
+                About the project:
+                Cryptator3001.1 is a tool designed for securely encrypting, decrypting,
+                and hashing passwords. The goal is to provide a reliable way to handle
+                sensitive information for secure storage and integrity verification.
+                
+                Features:
+                - Caesar: Encrypt or decrypt messages by shifting letters by a fixed number of positions in the alphabet.
+                - Vigenere: Use a keyword to encrypt or decrypt messages with a polyalphabetic substitution cipher.
+                - Polybe: Encode messages into pairs of coordinates using a grid-based substitution cipher.
+                - LFSR (Linear Feedback Shift Register): Generate pseudo-random numbers or encrypt data by shifting bits with feedback.
+                - RC4 (Rivest Cipher 4): Stream cipher that generates a pseudo-random bit stream for fast encryption and decryption.
+                - MD5 (Message Digest 5): Generate an MD5 hash for verifying the integrity of passwords.
+                - SHA-256 (Secure Hash Algorithm 256-bit): Generate a 256-bit cryptographic hash for secure data integrity and verification.
+                - Steganography : Hides a message in a png image stored in the repository.
+                - HMAC (hash-based message authentication code) Encodes an HMAC with the given data and compares it to a given hexadecimal HMAC to guarantee authenticity.
+                
+                Usage:
+                Select an option from the main menu by entering its number.
+                
+                For encryption and decryption, follow the specific prompts for each tool.
+                """;
 
         Menu.clearConsole();
         System.out.println(helpText);
 
         // Hidden clue as fragmented text
         String hiddenClue = """
-        Password security best practices:
-        - Protect your passwords with strong encryption. 
-        - Only use unique passwords for each account. 
-        - Limit sharing sensitive information online. 
-        - Your passwords should be long and complex. 
-        - Be aware of phishing attempts. 
-        - Enable two-factor authentication when possible. 
-        - Ensure your passwords are stored securely. 
-        - Avoid reusing old passwords across platforms. 
-        - Secure your accounts with regular updates. 
-        - Test the strength of your passwords regularly. 
-        - Encrypt sensitive files before storing them. 
-        - Rotate passwords periodically for added security. 
-        """;
+                Password security best practices:
+                - Protect your passwords with strong encryption. 
+                - Only use unique passwords for each account. 
+                - Limit sharing sensitive information online. 
+                - Your passwords should be long and complex. 
+                - Be aware of phishing attempts. 
+                - Enable two-factor authentication when possible. 
+                - Ensure your passwords are stored securely. 
+                - Avoid reusing old passwords across platforms. 
+                - Secure your accounts with regular updates. 
+                - Test the strength of your passwords regularly. 
+                - Encrypt sensitive files before storing them. 
+                - Rotate passwords periodically for added security. 
+                """;
 
         System.out.println(hiddenClue);
         System.out.println("\nPress Enter to return to the main menu...");
