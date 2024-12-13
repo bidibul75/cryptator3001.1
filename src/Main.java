@@ -5,6 +5,7 @@ import src.Caesar;
 import src.LFSR;
 import src.MD5;
 import src.Polybe;
+import src.Enigma;
 import src.Vigenere;
 import src.RC4;
 import src.Sha256;
@@ -65,7 +66,6 @@ public class Main {
                 "Vigenere",
                 "Polybe",
                 "LFSR",
-                "Enigma",
                 "RC4",
                 "MD5",
                 "SHA-256",
@@ -97,34 +97,30 @@ public class Main {
                     LFSR.start(scanner);
                     break;
                 case 4:
-                    System.out.println("\nLaunching Enigma...");
-                    // CALL THE ENIGMA STARTER
-                    break;
-                case 5:
                     System.out.println("\nLaunching RC4...");
                     RC4.start();
                     break;
-                case 6:
+                case 5:
                     System.out.println("\nLaunching MD5...");
                     MD5.start(scanner);
                     break;
-                case 7:
+                case 6:
                     System.out.println("\nLaunching SHA-256...");
                     Sha256.start(scanner);
                     break;
-                case 8:
+                case 7:
                     System.out.println("\nLaunching Steganography...");
                     Steganography.start();
                     break;
-                case 9:
+                case 8:
                     System.out.println("\nLaunching AES...");
                     AES.start(scanner);
                     break;
-                case 10:
+                case 9:
                     System.out.println("\nLaunching HMAC...");
                     Hmac.start(scanner);
                     break;
-                case 11:
+                case 10:
                     toolsRunning = false;
                     break;
                 default:
@@ -152,7 +148,6 @@ public class Main {
                 - Vigenere: Use a keyword to encrypt or decrypt messages with a polyalphabetic substitution cipher.
                 - Polybe: Encode messages into pairs of coordinates using a grid-based substitution cipher.
                 - LFSR (Linear Feedback Shift Register): Generate pseudo-random numbers or encrypt data by shifting bits with feedback.
-                - Enigma: Simulate the rotor-based encryption of the World War II German Enigma machine.
                 - RC4 (Rivest Cipher 4): Stream cipher that generates a pseudo-random bit stream for fast encryption and decryption.
                 - MD5 (Message Digest 5): Generate an MD5 hash for verifying the integrity of passwords.
                 - SHA-256 (Secure Hash Algorithm 256-bit): Generate a 256-bit cryptographic hash for secure data integrity and verification.
