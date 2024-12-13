@@ -86,7 +86,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("\nLaunching Polybe...");
-                    Polybe.Start();
+                    //Polybe.Start();
                     break;
                 case 3:
                     System.out.println("\nLaunching LFSR...");
@@ -111,7 +111,7 @@ public class Main {
                 case 8:
                     System.out.println("\nLaunching InitializationVector...");
                     InitializationVector.start(scanner);
-                case 8:
+                case 9:
                     toolsRunning = false;
                     break;
                 default:
