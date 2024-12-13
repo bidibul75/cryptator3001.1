@@ -50,7 +50,7 @@ public class RC4 {
         array[j] = temp;
     }
 
-    public static void Start() {
+    public static void start() {
         System.out.println("\n---RC4---------------------------");
         String choice;
         // Is an encryption already made or not (used to propose to re-use the encrypted message)

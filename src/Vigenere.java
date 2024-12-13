@@ -1,4 +1,5 @@
 package src;
+
 import java.util.Scanner;
 
 public class Vigenere {
@@ -59,6 +60,8 @@ public class Vigenere {
       public static void start(Scanner scanner){
         //Scanner scanner = new Scanner(System.in);
         Vigenere cipher = new Vigenere();
+
+        System.out.println("=== Vigenere ===");
 
         // User enters a password
         System.out.print("Enter your password: ");

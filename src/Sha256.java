@@ -9,7 +9,7 @@ public class Sha256 {
 
     //public static void main(String[]arg){
     public static void start(Scanner scanner) {
-        //Scanner scanner = new Scanner(System.in);
+        System.out.println("=== SHA-256 ===");
 
         // Prompt the user to enter a password
         System.out.print("Enter a password to hash: ");

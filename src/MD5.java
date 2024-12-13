@@ -1,3 +1,5 @@
+package src;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
@@ -10,7 +12,7 @@ public class MD5 {
      * @param scanner: The Scanner object used for user input.
      */
     public static void start(Scanner scanner) {
-        System.out.println("=== MD5 Tool ===");
+        System.out.println("=== MD5 ===");
 
         boolean running = true;
         while (running) {
