@@ -5,6 +5,7 @@ import src.Caesar;
 import src.LFSR;
 import src.MD5;
 import src.Polybe;
+import src.Enigma;
 import src.Vigenere;
 import src.RC4;
 import src.Sha256;
@@ -96,7 +97,7 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("\nLaunching Enigma...");
-                    // CALL THE ENIGMA STARTER
+                    Enigma.start(scanner);
                     break;
                 case 5:
                     System.out.println("\nLaunching RC4...");

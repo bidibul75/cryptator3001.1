@@ -8,14 +8,15 @@ import java.util.regex.Pattern;
 
 public class Enigma {
 
-    private static final char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+    private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    private static final String reversedAlphabet = new StringBuilder(alphabet).reverse().toString();
+
 
     /**
      * @throws Exception
      */
-    public static void Start(){
+    public static void start(Scanner scanner){
         System.out.println("\n---ENIGMA---------------------------");
-        Scanner scanner = new Scanner(System.in);
 
         // choice for the user
         String choice, messageToEncrypt = "", messageToDecrypt = "", errorMessage = "";
@@ -109,7 +110,7 @@ public class Enigma {
 
             if (Pattern.matches("^[a-z]+$", messageToEncrypt)) {
                 System.out.println("Message to decrypt : " + messageToEncrypt);
-                System.out.println("Encrypted message : " + Enigma.decryptEnigma(messageToEncrypt, wheel));
+                System.out.println("Decrypted message : " + Enigma.decryptEnigma(messageToEncrypt, wheel));
                 break;
             }
 
@@ -137,14 +138,20 @@ public class Enigma {
         return new String(data);
     }
 
+    /**
+     * decrypts a message by reversing the enigma algorithm
+     * @param message encrypted message
+     * @param wheelPositions wheel positions
+     * @return the decyphered message
+     */
     public static String decryptEnigma(String message, int[] wheelPositions) {
         char[] data = sanitizeMessage(message.toLowerCase().toCharArray());
 
         for (int i = wheelPositions.length - 1; i >= 0; i--) {
             for (int j = 0; j < data.length; j++) {
-                data[j] = getLetterWithOffset(data[j], wheelPositions[(wheelPositions.length - 1) - i], true);
-                data[j] = mirrorChar(data[j]);
                 data[j] = getLetterWithOffset(data[j], wheelPositions[i], true);
+                data[j] = mirrorChar(data[j]);
+                data[j] = getLetterWithOffset(data[j], wheelPositions[(wheelPositions.length - 1) - i], true);
             }
         }
         return new String(data);
@@ -154,75 +161,36 @@ public class Enigma {
      * returns the character at the specified offset of the alphabet. Loops the alphabet if position is longer than the alphabet length.
      * @param letter the letter to search in the alphabet
      * @param offset offset to add or subtract
-     * @param inverse whether to reverse the offset (used for decryption)
      * @return letter at the specified offset
      */
-    public static char getLetterWithOffset(char letter, int offset, boolean inverse) {;
-        int firstIndex = firstIndexOfChar(alphabet, letter);
-        if (inverse) {
-            // subtract the offset and wrap around if needed
-            int index;
-            if(firstIndex - offset < 0) {
-                index = (alphabet.length - 1) + firstIndex - offset;
-            } else {
-                index = firstIndex - offset;
-            }
-            return alphabet[index];
-        } else {
-            // addition the offset and wrap around if needed
-            int index;
-            if(firstIndex + offset >= alphabet.length) {
-                index = (alphabet.length - 1) + firstIndex - offset;
-            } else {
-                index = firstIndex + offset;
-            }
-            return alphabet[index];
-        }
+    public static char getLetterWithOffset(char letter, int offset) {
+        int charIndex = alphabet.indexOf(letter);
+        charIndex = (charIndex + offset) % alphabet.length();
+        return alphabet.charAt(charIndex);
     }
 
     /**
      * mirrors on the alphabet each letter of the character list
      * @param character character we want to mirror
+     * @return the mirrored character
      */
     public static char mirrorChar(char character) {
-        int firstIndex = firstIndexOfChar(alphabet, character);
-        int mirroredIndex;
-            // invert char position according to the size of the alphabet
-        if(firstIndex < alphabet.length/2) {
-            mirroredIndex = (alphabet.length/2) - (alphabet.length/2 - firstIndex);
-        } else if (firstIndex > alphabet.length/2) {
-            mirroredIndex = (alphabet.length/2) + (alphabet.length/2 - firstIndex);
-        } else {
-            mirroredIndex = firstIndex;
-        }
-
-        return alphabet[mirroredIndex];
+        int index = alphabet.indexOf(character);
+        return reversedAlphabet.charAt(index);
     }
 
     /**
-     * return the first index of the character in the char array
-     * @param charList char array to iterate over
-     * @param character character to check
-     * @return index of the first instance of the character
+     * sanitizes a message to make it suitable for enigma
+     * @param message message to sanitize
+     * @return sanitized message
      */
-    public static int firstIndexOfChar(char[] charList, char character) {
-        int number = -1; // if the element is not in the list
-        for (int i = 0; i < charList.length; i++) {
-            if (charList[i] == character) {
-                number = i;
-                break;
-            }
-        }
-        return number;
-    }
-
     public static char[] sanitizeMessage(char[] message) {
         // dynamic list of characters
         List<Character> cleanMessageData = new ArrayList<>();
         // iterate over each
         for (int i = 0; i < message.length; i++) {
-            for (int j = 0; j < alphabet.length; j++) {
-                if(message[i] == alphabet[j]) {
+            for (int j = 0; j < alphabet.length(); j++) {
+                if(message[i] == alphabet.charAt(j)) {
                     cleanMessageData.add(message[i]);
                 }
             }
@@ -236,6 +204,11 @@ public class Enigma {
         return cleanMessage;
     }
 
+    /**
+     * checks if a string contains only a number between 0 and 25
+     * @param str string containing the number
+     * @return whether the string is a valid number between 0 and 25
+     */
     public static boolean isValidNumber(String str) {
         if (str.matches("^[0-9]{1,2}$")) {
             int number = Integer.parseInt(str);
