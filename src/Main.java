@@ -9,6 +9,7 @@ import src.Vigenere;
 import src.RC4;
 import src.Sha256;
 import src.AES;
+import src.Steganography;
 
 import java.util.Scanner;
 
