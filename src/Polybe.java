@@ -23,7 +23,7 @@ enum Polybe {
     }
 
     // Method to get the code from a char
-    public static int getCodeFromChar(char c) throws Exception {
+    public static int getCodeFromChar(char c) {
         // Checks if the message to encrypt contains only letters
         if (c == ' ') return 57; // 57 stands for spaces in the message to encrypt
         // Gets the respective code from a character in the enum
@@ -31,8 +31,8 @@ enum Polybe {
             return valueOf(String.valueOf(Character.toUpperCase(c))).getCode();
         } catch (IllegalArgumentException e) {
             // If the character is not found in the Polybe enum, as we know at that point that the character is
-            // a letter, it means that le Polybe enum lacks a letter
-            throw new Exception("Some letter lacks in the Polybe enum.");
+            // a letter, it means that le Polybe enum lacks a letter. We return the code 999 to spot that.
+            return 999;
         }
     }
 
@@ -47,7 +47,7 @@ enum Polybe {
     }
 
     // Encryption method
-    public static String encryption(String messageToCode) throws Exception {
+    public static String encryption(String messageToCode) {
         if (messageToCode.equalsIgnoreCase("easter")) {
             System.out.println("        ,~.\n" +
                     "      ,-'__ `-,\n" +
@@ -68,9 +68,14 @@ enum Polybe {
                     "                   `\"\"\"`" + "                 `---___---'\n");
             return "366";
         }
-        String encodedMessage = "";
+        String encodedMessage = "", codeTemp;
         for (int i = 0; i < messageToCode.length(); i++) {
-            encodedMessage += String.valueOf(getCodeFromChar(messageToCode.charAt(i)));
+            codeTemp = String.valueOf(getCodeFromChar(messageToCode.charAt(i)));
+            if (codeTemp.equals("999")) {
+                System.out.println("Error : the character has not been found in the Polybe array.");
+                System.exit(1);
+            }
+            encodedMessage += codeTemp;
         }
         return encodedMessage;
     }
@@ -97,7 +102,7 @@ enum Polybe {
         }
     }
 
-    public static void Start() throws Exception {
+    public static void start() {
         System.out.println("\n---POLYBE---------------------------");
 
         Scanner scanner = new Scanner(System.in);
@@ -114,7 +119,6 @@ enum Polybe {
             messageToEncrypt = scanner.nextLine();
             messageToEncrypt = messageToEncrypt.trim();
             if (Pattern.matches("^[a-zA-Z ]*$", messageToEncrypt)) {
-                System.out.println("Message to encrypt : " + messageToEncrypt);
                 System.out.println("Encrypted message : " + Polybe.encryption(messageToEncrypt));
                 break;
             }
