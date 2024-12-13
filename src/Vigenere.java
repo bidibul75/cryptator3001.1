@@ -83,7 +83,7 @@ public class Vigenere {
 
         // Check if the user failed to enter a valid key after 5 attempts
         if (compt >= 5) {
-            System.out.println("Error: noob YOU LOOSE back to menu!!!!");
+            System.out.println("Error: back to menu!!!");
             return; // Exit the program if maximum attempts are reached
         }
 
