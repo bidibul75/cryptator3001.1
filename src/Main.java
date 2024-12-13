@@ -10,7 +10,7 @@ import src.RC4;
 import src.Sha256;
 import src.AES;
 import src.Steganography;
-//import src.HMAC;
+import src.Hmac;
 
 import java.util.Scanner;
 
