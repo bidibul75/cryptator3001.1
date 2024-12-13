@@ -84,7 +84,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("\nLaunching Polybe...");
-                    //Polybe.Start();
+                    Polybe.Start();
                     break;
                 case 3:
                     System.out.println("\nLaunching LFSR...");
