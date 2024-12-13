@@ -30,7 +30,7 @@ public class Enigma {
         while (choice.equalsIgnoreCase("E")) {
             int[] wheel = {0, 0, 0};
             while (true) {
-                System.out.print("ENIGMA - Which position for the first wheel (0 - 26)? : ");
+                System.out.print("ENIGMA - Which position for the first wheel (0 - 25)? : ");
                 choice = scanner.nextLine();
                 if (isValidNumber(choice)) {
                     wheel[0] = Integer.parseInt(choice);
@@ -40,7 +40,7 @@ public class Enigma {
             }
 
             while (true) {
-                System.out.print("ENIGMA - Which position for the first wheel (0 - 26)? : ");
+                System.out.print("ENIGMA - Which position for the first wheel (0 - 25)? : ");
                 choice = scanner.nextLine();
                 if (isValidNumber(choice)) {
                     wheel[1] = Integer.parseInt(choice);
@@ -50,7 +50,7 @@ public class Enigma {
             }
 
             while (true) {
-                System.out.print("ENIGMA - Which position for the first wheel (0 - 26)? : ");
+                System.out.print("ENIGMA - Which position for the first wheel (0 - 25)? : ");
                 choice = scanner.nextLine();
                 if (isValidNumber(choice)) {
                     wheel[2] = Integer.parseInt(choice);
@@ -75,7 +75,7 @@ public class Enigma {
         while (choice.equalsIgnoreCase("D")) {
             int[] wheel = {0, 0, 0};
             while (true) {
-                System.out.print("ENIGMA - Which position for the first wheel (0 - 26)? : ");
+                System.out.print("ENIGMA - Which position for the first wheel (0 - 25)? : ");
                 choice = scanner.nextLine();
                 if (isValidNumber(choice)) {
                     wheel[1] = Integer.parseInt(choice);
@@ -85,7 +85,7 @@ public class Enigma {
             }
 
             while (true) {
-                System.out.print("ENIGMA - Which position for the second wheel (0 - 26)? : ");
+                System.out.print("ENIGMA - Which position for the second wheel (0 - 25)? : ");
                 choice = scanner.nextLine();
                 if (isValidNumber(choice)) {
                     wheel[2] = Integer.parseInt(choice);
@@ -95,7 +95,7 @@ public class Enigma {
             }
 
             while (true) {
-                System.out.print("ENIGMA - Which position for the third wheel (0 - 26)? : ");
+                System.out.print("ENIGMA - Which position for the third wheel (0 - 25)? : ");
                 choice = scanner.nextLine();
                 if (isValidNumber(choice)) {
                     wheel[0] = Integer.parseInt(choice);
@@ -126,32 +126,63 @@ public class Enigma {
      * @return encrypted message
      */
     public static String encryptEnigma(String message, int[] wheelPositions) {
+        // sanitize the message just in case
         char[] data = sanitizeMessage(message.toLowerCase().toCharArray());
 
-        for (int i = 0; i < wheelPositions.length; i++) {
-            for (int j = 0; j < data.length; j++) {
-                data[j] = getLetterWithOffset(data[j], wheelPositions[i], false);
-                data[j] = mirrorChar(data[j]);
-                data[j] = getLetterWithOffset(data[j], wheelPositions[(wheelPositions.length - 1) - i], false);
+        // loop for each character of the message
+        for (int j = 0; j < data.length; j++) {
+            // rotors
+            for (int i = 0; i < wheelPositions.length; i++) {
+                data[j] = getLetterWithOffset(data[j], wheelPositions[i]);
+            }
+
+            // mirror the character
+            data[j] = mirrorChar(data[j]);
+
+            // rotors reverse
+            for (int i = wheelPositions.length - 1; i >= 0; i--) {
+                data[j] = getLetterWithOffset(data[j], -wheelPositions[i]); // Apply the reverse offset
+            }
+
+            // rotate the rotors after each character is processed
+            for (int i = 0; i < wheelPositions.length; i++) {
+                wheelPositions[i] = (wheelPositions[i] + 1) % alphabet.length();  // Rotate the rotor position
             }
         }
         return new String(data);
     }
 
     /**
-     * decrypts a message by reversing the enigma algorithm
-     * @param message encrypted message
-     * @param wheelPositions wheel positions
-     * @return the decyphered message
+     * decrypts the message given with the enigma algorithm
+     * @param message message to decrypt
+     * @param wheelPositions array with the positions of each wheel in order, technically would work with any size
+     * @return decrypted message
      */
     public static String decryptEnigma(String message, int[] wheelPositions) {
+        // sanitize the message just in case
         char[] data = sanitizeMessage(message.toLowerCase().toCharArray());
 
-        for (int i = wheelPositions.length - 1; i >= 0; i--) {
-            for (int j = 0; j < data.length; j++) {
-                data[j] = getLetterWithOffset(data[j], wheelPositions[i], true);
-                data[j] = mirrorChar(data[j]);
-                data[j] = getLetterWithOffset(data[j], wheelPositions[(wheelPositions.length - 1) - i], true);
+        // loop for each character of the message
+        for (int j = 0; j < data.length; j++) {
+            // Apply rotor shifts in reverse (decrypting)
+            for (int i = wheelPositions.length - 1; i >= 0; i--) {
+                data[j] = getLetterWithOffset(data[j], -wheelPositions[i]);  // Reverse rotor shift
+            }
+
+            // mirror the character (reflector)
+            data[j] = mirrorChar(data[j]);
+
+            // apply rotor shifts forward (decrypting reverse process)
+            for (int i = 0; i < wheelPositions.length; i++) {
+                data[j] = getLetterWithOffset(data[j], wheelPositions[i]);  // Forward rotor shift
+            }
+
+            // rotate the rotors after each character is processed
+            for (int i = 0; i < wheelPositions.length; i++) {
+                wheelPositions[i] = (wheelPositions[i] + 1) % alphabet.length();
+                if (i < wheelPositions.length - 1 && wheelPositions[i] == 0) {
+                    wheelPositions[i + 1] = (wheelPositions[i + 1] + 1) % alphabet.length();
+                }
             }
         }
         return new String(data);
@@ -165,7 +196,8 @@ public class Enigma {
      */
     public static char getLetterWithOffset(char letter, int offset) {
         int charIndex = alphabet.indexOf(letter);
-        charIndex = (charIndex + offset) % alphabet.length();
+        // loop alphabet
+        charIndex = (charIndex + offset + alphabet.length()) % alphabet.length();
         return alphabet.charAt(charIndex);
     }
 

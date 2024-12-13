@@ -65,7 +65,6 @@ public class Main {
                 "Vigenere",
                 "Polybe",
                 "LFSR",
-                "Enigma",
                 "RC4",
                 "MD5",
                 "SHA-256",
@@ -96,30 +95,26 @@ public class Main {
                     LFSR.start(scanner);
                     break;
                 case 4:
-                    System.out.println("\nLaunching Enigma...");
-                    Enigma.start(scanner);
-                    break;
-                case 5:
                     System.out.println("\nLaunching RC4...");
                     RC4.start();
                     break;
-                case 6:
+                case 5:
                     System.out.println("\nLaunching MD5...");
                     MD5.start(scanner);
                     break;
-                case 7:
+                case 6:
                     System.out.println("\nLaunching SHA-256...");
                     Sha256.start(scanner);
                     break;
-                case 8:
+                case 7:
                     System.out.println("\nLaunching Steganography...");
                     Steganography.start();
                     break;
-                case 9:
+                case 8:
                     System.out.println("\nLaunching AES...");
                     AES.start(scanner);
                     break;
-                case 10:
+                case 9:
                     toolsRunning = false;
                     break;
                 default:
