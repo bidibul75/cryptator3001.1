@@ -8,6 +8,7 @@ import src.Polybe;
 import src.Vigenere;
 import src.RC4;
 import src.Sha256;
+import src.InitializationVector;
 
 import java.util.Scanner;
 
@@ -66,6 +67,7 @@ public class Main {
                 "RC4",
                 "MD5",
                 "SHA-256",
+                "InitializationVector",
                 "Back to Main Menu"
         };
 
@@ -107,6 +109,9 @@ public class Main {
                     Sha256.start(scanner);
                     break;
                 case 8:
+                    System.out.println("\nLaunching InitializationVector...");
+                    InitializationVector.start(scanner);
+                case 8:
                     toolsRunning = false;
                     break;
                 default:
@@ -138,6 +143,7 @@ public class Main {
         - RC4 (Rivest Cipher 4): Stream cipher that generates a pseudo-random bit stream for fast encryption and decryption.
         - MD5 (Message Digest 5): Generate an MD5 hash for verifying the integrity of passwords.
         - SHA-256 (Secure Hash Algorithm 256-bit): Generate a 256-bit cryptographic hash for secure data integrity and verification.
+        - InitializationVector: Encrypts a password entered by the user using two different AES keys derived from the same password by adding random salts, ensuring two distinct encryption results for the same password.
 
         Usage:
         Select an option from the main menu by entering its number.
