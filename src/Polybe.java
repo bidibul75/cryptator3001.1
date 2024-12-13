@@ -107,45 +107,57 @@ enum Polybe {
 
         Scanner scanner = new Scanner(System.in);
         String choice, messageToEncrypt = "", messageToDecrypt = "", errorMessage = "";
-        while (true) {
-            System.out.print("POLYBE - do you want to encrypt (E) or decrypt (D) ? : ");
+        do {
+            System.out.print("POLYBE - do you want to encrypt (E), decrypt (D) or exit (Q) ? : ");
             choice = scanner.nextLine();
-            if (choice.equalsIgnoreCase("E") || choice.equalsIgnoreCase("D")) break;
-            else System.out.println("Please answer correctly to the question.");
-        }
-        // Encryption
-        while (choice.equalsIgnoreCase("E")) {
-            System.out.print("Please enter the message to encrypt (letters and spaces only) : ");
-            messageToEncrypt = scanner.nextLine();
-            messageToEncrypt = messageToEncrypt.trim();
-            if (Pattern.matches("^[a-zA-Z ]*$", messageToEncrypt)) {
-                System.out.println("Encrypted message : " + Polybe.encryption(messageToEncrypt));
-                break;
-            }
-            System.out.println("Error : the message to encrypt is not only composed of letters and spaces");
-        }
-        // Decryption
-        while (choice.equalsIgnoreCase("D")) {
-            System.out.print("Please enter the message to decrypt (numbers only) : ");
-            messageToDecrypt = scanner.nextLine();
-            messageToDecrypt = messageToDecrypt.trim();
-
-            // Errors detection on the coded message sent in parameter : message length is odd and/or non-numeric item in the message
-            if (messageToDecrypt.length() % 2 != 0) errorMessage += "Error : encrypted message length isn't even.\n";
-            boolean isNumeric = Pattern.matches("^\\d+$", messageToDecrypt);
-            if (!isNumeric) errorMessage += "Error : encrypted message doesn't contains only numbers.";
-            if (!errorMessage.isEmpty()) {
-                System.out.println(errorMessage);
-                errorMessage = "";
-            } else {
-                String decryptionResult = Polybe.decryption(messageToDecrypt);
-                if (decryptionResult.substring(0, 5).equalsIgnoreCase("Error")) {
-                    System.out.println(decryptionResult);
-                } else {
-                    System.out.println("Decrypted message : " + decryptionResult);
+            choice = choice.toUpperCase();
+            switch (choice) {
+                case "E":
+                    do {
+                        System.out.print("Please enter the message to encrypt (letters and spaces only) : ");
+                        messageToEncrypt = scanner.nextLine();
+                    } while (messageToEncrypt.isEmpty());
+                    messageToEncrypt = messageToEncrypt.trim();
+                    if (Pattern.matches("^[a-zA-Z ]*$", messageToEncrypt)) {
+                        System.out.println("Encrypted message : " + Polybe.encryption(messageToEncrypt));
+                        choice="";
+                        break;
+                    }
+                    System.out.println("Error : the message to encrypt is not only composed of letters and spaces");
+                    choice = "";
                     break;
-                }
+                case "D":
+                    do {
+                        System.out.print("Please enter the message to decrypt (numbers only) : ");
+                        messageToDecrypt = scanner.nextLine();
+                    } while (messageToDecrypt.isEmpty());
+                    messageToDecrypt = messageToDecrypt.trim();
+
+                    // Errors detection on the coded message sent in parameter : message length is odd and/or non-numeric item in the message
+                    if (messageToDecrypt.length() % 2 != 0)
+                        errorMessage += "Error : encrypted message length isn't even.\n";
+                    boolean isNumeric = Pattern.matches("^\\d+$", messageToDecrypt);
+                    if (!isNumeric) errorMessage += "Error : encrypted message doesn't contains only numbers.";
+                    if (!errorMessage.isEmpty()) {
+                        System.out.println(errorMessage);
+                        errorMessage = "";
+                    } else {
+                        String decryptionResult = Polybe.decryption(messageToDecrypt);
+                        if (decryptionResult.length()>6 &&decryptionResult.substring(0, 5).equalsIgnoreCase("Error")) {
+                            System.out.println(decryptionResult);
+                        } else {
+                            System.out.println("Decrypted message : " + decryptionResult);
+                        }
+                    }
+                    choice = "";
+                    break;
+                case "Q":
+                    break;
+                default:
+                    System.out.println("Please enter a correct answer.");
+                    choice = "";
+                    break;
             }
-        }
+        } while (choice.isEmpty());
     }
 }

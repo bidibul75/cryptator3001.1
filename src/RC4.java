@@ -59,8 +59,11 @@ public class RC4 {
         byte[] encryptedMessage = new byte[0];
         // the key is asked once before asking for encryption or decryption
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please enter the key : ");
-        String key = scanner.nextLine();
+        String key;
+        do {
+            System.out.print("Please enter the key : ");
+            key = scanner.nextLine();
+        } while (key.isEmpty());
 
         do {
             System.out.print("Do you want to encrypt (E), decrypt (D) or exit (Q) ? : ");
@@ -74,7 +77,7 @@ public class RC4 {
                     encryptionMade = true;
                     break;
                 case "D":
-                    boolean useLastEncryptedMessage=false;
+                    boolean useLastEncryptedMessage = false;
                     // if an encrypted message has already been made, the user is asked for using it or not
                     if (encryptionMade) {
                         System.out.print("An encryption has been made, do you want to use the encrypted message to be used for decryption (Y/N) ? : ");
@@ -91,8 +94,10 @@ public class RC4 {
 
     public static byte[] encryptRC4(String key, Scanner scanner) {
         String messageToEncrypt;
-        System.out.print("Please enter the message to encrypt : ");
-        messageToEncrypt = scanner.nextLine();
+        do {
+            System.out.print("Please enter the message to encrypt : ");
+            messageToEncrypt = scanner.nextLine();
+        } while (messageToEncrypt.isEmpty());
         // spaces at the begining and at the end of the string are deleted
         messageToEncrypt = messageToEncrypt.trim();
         // Crypt - RC4 initialization with the key
@@ -107,8 +112,10 @@ public class RC4 {
         if (useLastEncryptedMessage) {
             messageToDecrypt = encryptedMessage;
         } else {
-            System.out.print("Please enter the message to decrypt : ");
-            messageToDecrypt = scanner.nextLine().getBytes();
+            do {
+                System.out.print("Please enter the message to decrypt : ");
+                messageToDecrypt = scanner.nextLine().getBytes();
+            } while (messageToDecrypt.length == 0);
         }
         // Decrypt
         RC4 rc4Decrypt = new RC4(key.getBytes());
