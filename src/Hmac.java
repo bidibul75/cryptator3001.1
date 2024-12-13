@@ -9,9 +9,7 @@ import java.util.Scanner;
 
 public class Hmac {
 
-    void Start() {
-        Scanner scanner = new Scanner(System.in);
-
+    static void start(Scanner scanner) {
         // Prompt the user to enter the data needed for hmac
         System.out.print("Enter your hash: ");
         String hash = scanner.nextLine();
