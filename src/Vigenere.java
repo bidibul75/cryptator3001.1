@@ -26,6 +26,9 @@ public class Vigenere {
 
     // Method to validate the key
     public boolean isValidKey(String key) {
+        if (key == null || key.isEmpty()) {
+            return false; // Key must not be null or empty
+        }
         for (int i = 0; i < key.length(); i++) {
             char c = key.charAt(i);
             // Check if the character is not a letter (A-Z or a-z)
@@ -57,50 +60,44 @@ public class Vigenere {
     }
 
     //public static void main(String[] args) {
-      public static void start(Scanner scanner){
-        //Scanner scanner = new Scanner(System.in);
+    public static void start(Scanner scanner) {
         Vigenere cipher = new Vigenere();
 
-        System.out.println("=== Vigenere ===");
+        System.out.println("=== Vigenere Cipher ===");
 
         // User enters a password
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
-        String key = "";  // Initialize the key variable before the loop
-        int compt = 0; // Counter for invalid attempts
+        String key;
+        int attempts = 0; // Counter for invalid attempts
 
-        // Keep asking for a valid key until the user provides one or 5 attempts are reached
-        while (compt < 5) {
+        // Ask for a valid key with up to 5 attempts
+        while (attempts < 5) {
             System.out.print("Enter the key for encryption (only letters): ");
             key = scanner.nextLine();
 
+            // Validate the key
             if (cipher.isValidKey(key)) {
-                break; // If key is valid, exit the loop
+                // Key is valid, proceed to encryption
+                String encryptedPassword = cipher.encrypt(password, key);
+
+                // Display the encrypted password
+                System.out.println("Your encrypted password is: " + encryptedPassword);
+
+                // Decrypt the password using the same key
+                String decryptedPassword = cipher.decrypt(encryptedPassword, key);
+
+                // Display the decrypted password
+                System.out.println("Your decrypted password is: " + decryptedPassword);
+                return; // Exit the method
             } else {
-                compt++; // Increment the attempts count
-                System.out.println("Invalid key! Please enter only letters.");
+                attempts++; // Increment the attempts count
+                System.out.println("Invalid key! Please enter only letters and make sure it is not empty.");
             }
         }
 
-        // Check if the user failed to enter a valid key after 5 attempts
-        if (compt >= 5) {
-            System.out.println("Error: noob YOU LOOSE back to menu!!!!");
-            return; // Exit the program if maximum attempts are reached
-        }
-
-        // Encrypt the password using the Vigenere
-        String encryptedPassword = cipher.encrypt(password, key);
-
-        // Display the encrypted password
-        System.out.println("Your encrypted password is: " + encryptedPassword);
-
-        // Decrypt the password using the same key
-        String decryptedPassword = cipher.decrypt(encryptedPassword, key);
-
-        // Display the decrypted password
-        System.out.println("Your decrypted password is: " + decryptedPassword);
-
-        //scanner.close();
+        // If the user fails to provide a valid key after 5 attempts
+        System.out.println("Error: Too many invalid attempts. Returning to the main menu.");
     }
 }
