@@ -67,6 +67,7 @@ public class Main {
                 "RC4",
                 "MD5",
                 "SHA-256",
+                "Steganographie",
                 "AES",
                 "Back to Main Menu"
         };
@@ -86,7 +87,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("\nLaunching Polybe...");
-                    Polybe.Start();
+                    Polybe.start();
                     break;
                 case 3:
                     System.out.println("\nLaunching LFSR...");
@@ -98,7 +99,7 @@ public class Main {
                     break;
                 case 5:
                     System.out.println("\nLaunching RC4...");
-                    RC4.Start();
+                    RC4.start();
                     break;
                 case 6:
                     System.out.println("\nLaunching MD5...");
@@ -109,10 +110,14 @@ public class Main {
                     Sha256.start(scanner);
                     break;
                 case 8:
+                    System.out.println("\nLaunching Steganography...");
+                    Steganography.start();
+                    break;
+                case 9:
                     System.out.println("\nLaunching AES...");
                     AES.start(scanner);
                     break;
-                case 9:
+                case 10:
                     toolsRunning = false;
                     break;
                 default:
