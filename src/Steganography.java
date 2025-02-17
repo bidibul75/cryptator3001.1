@@ -146,7 +146,7 @@ public class Steganography {
     }
 
     public static void start() {
-        System.out.println("\n---Steganograoph-----------------------");
+        System.out.println("\n---Steganography-----------------------");
         Scanner scanner = new Scanner(System.in);
         String choice;
         do {

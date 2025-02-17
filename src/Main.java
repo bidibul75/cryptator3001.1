@@ -69,7 +69,7 @@ public class Main {
                 "RC4",
                 "MD5",
                 "SHA-256",
-                "Steganographie",
+                "Steganography",
                 "AES",
                 "HMAC",
                 "Back to Main Menu"

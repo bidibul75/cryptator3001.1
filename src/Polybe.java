@@ -49,23 +49,21 @@ enum Polybe {
     // Encryption method
     public static String encryption(String messageToCode) {
         if (messageToCode.equalsIgnoreCase("easter")) {
-            System.out.println("        ,~.\n" +
-                    "      ,-'__ `-,\n" +
-                    "     {,-'  `. }              ,')\n" +
-                    "    ,( a )   `-.__         ,',')~\n" +
-                    "   <=.) (         `-.__,==' ' ' }\n" +
-                    "     (   )                      /\n" +
-                    "      `-'\\\\   ,                    )\n" +
-                    "          |  \\\\        `~.        /" + "        ..---..\n" +
-                    "          \\\\   `._        \\\\      /" + "      /         \\ \n" +
-
-                    "           \\\\     `._____,'    ,'" + "       /           \\ \n" +
-
-                    "            `-.             ,'   " + "       :            ;\n" +
-
-                    "               `-._     _,-'     " + "       \\           /\n" +
-
-                    "                   `\"\"\"`" + "                 `---___---'\n");
+            System.out.println("""
+                            ,~.
+                          ,-'__ `-,
+                         {,-'  `. }              ,')
+                        ,( a )   `-.__         ,',')~
+                       <=.) (         `-.__,==' ' ' }
+                         (   )                      /
+                          `-'\\\\   ,                    )
+                              |  \\\\        `~.        /        ..---..
+                              \\\\   `._        \\\\      /      /         \\\s
+                               \\\\     `._____,'    ,'       /           \\\s
+                                `-.             ,'          :            ;
+                                   `-._     _,-'            \\           /
+                                       `""\"`                 `---___---'
+                    """);
             return "366";
         }
         String encodedMessage = "", codeTemp;
@@ -84,8 +82,8 @@ enum Polybe {
     public static String decryption(String codedMessage) {
         if (codedMessage.equalsIgnoreCase("366")) return "easter";
 
-        String sliceString = "", decodedMessage = "";
-        int sliceInt = 0;
+        String sliceString="", decodedMessage="";
+        int sliceInt;
         try {
             // Makes slices of 2 numbers from the coded message then sends each slide to the method that returns the character
             for (int i = 0; i < codedMessage.length(); i += 2) {
@@ -106,7 +104,8 @@ enum Polybe {
         System.out.println("\n---POLYBE---------------------------");
 
         Scanner scanner = new Scanner(System.in);
-        String choice, messageToEncrypt = "", messageToDecrypt = "", errorMessage = "";
+        String choice, messageToEncrypt, messageToDecrypt;
+        StringBuilder errorMessage= new StringBuilder();
         do {
             System.out.print("POLYBE - do you want to encrypt (E), decrypt (D) or exit (Q) ? : ");
             choice = scanner.nextLine();
@@ -135,12 +134,12 @@ enum Polybe {
 
                     // Errors detection on the coded message sent in parameter : message length is odd and/or non-numeric item in the message
                     if (messageToDecrypt.length() % 2 != 0)
-                        errorMessage += "Error : encrypted message length isn't even.\n";
+                        errorMessage.append("Error : encrypted message length isn't even.\n");
                     boolean isNumeric = Pattern.matches("^\\d+$", messageToDecrypt);
-                    if (!isNumeric) errorMessage += "Error : encrypted message doesn't contains only numbers.";
+                    if (!isNumeric) errorMessage.append("Error : encrypted message doesn't contains only numbers.");
                     if (!errorMessage.isEmpty()) {
                         System.out.println(errorMessage);
-                        errorMessage = "";
+                        errorMessage.setLength(0);
                     } else {
                         String decryptionResult = Polybe.decryption(messageToDecrypt);
                         if (decryptionResult.length()>6 &&decryptionResult.substring(0, 5).equalsIgnoreCase("Error")) {
